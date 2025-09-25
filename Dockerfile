@@ -20,17 +20,11 @@ RUN apt-get update && apt-get install -y \
 # Install uv package manager
 RUN pip install uv
 
-# Copy dependency files
-COPY pyproject.toml uv.lock* ./
-
-# Install Python dependencies
-RUN uv sync --frozen
-
-# Copy the entire application
+# Copy the entire application first
 COPY . .
 
-# Install the package in development mode
-RUN uv pip install -e .
+# Install Python dependencies and the package
+RUN uv sync --frozen
 
 # Create a non-root user
 RUN useradd --create-home --shell /bin/bash app \
