@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  open-deep-research:
+    build: .
+    ports:
+      - "2024:2024"
+    environment:
+      # Copy your API keys here or use an .env file
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+      - LANGSMITH_PROJECT=${LANGSMITH_PROJECT}
+      - LANGSMITH_TRACING=${LANGSMITH_TRACING}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - GET_API_KEYS_FROM_CONFIG=${GET_API_KEYS_FROM_CONFIG:-false}
+    volumes:
+      # Optional: Mount a local .env file
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2024/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
