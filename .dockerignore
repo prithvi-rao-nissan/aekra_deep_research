@@ -57,14 +57,14 @@ Dockerfile
 .dockerignore
 
 # Documentation
-*.md
 docs/
+# Keep README.md for package building
+!README.md
 
-# Tests
-tests/
+# Test artifacts (but keep tests/ directory for package)
 .pytest_cache/
 .coverage
-htmlcov/
+htmlcv/
 
 # Other
 .env.example
