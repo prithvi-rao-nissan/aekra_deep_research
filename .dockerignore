@@ -67,6 +67,7 @@ docs/
 htmlcv/
 
 # Other
-.env.example
 *.log
 node_modules/
+# Keep .env.example for Docker builds
+!.env.example
