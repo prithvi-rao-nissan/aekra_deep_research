@@ -23,6 +23,9 @@ RUN pip install uv
 # Copy the entire application first
 COPY . .
 
+# Create .env file from example (users can override with docker run -e or docker-compose)
+RUN cp .env.example .env
+
 # Install Python dependencies and the package
 RUN uv sync --frozen
 
